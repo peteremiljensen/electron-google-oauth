@@ -27,6 +27,14 @@ function authorizeApp(url, browserWindowParams) {
 		const win = new BrowserWindow(browserWindowParams || {'use-content-size': true});
 
 		win.loadURL(url);
+		
+		win.webContents.on('did-finish-load', () => {
+			if (!win) {
+			  throw new Error('"mainWindow" is not defined');
+			}
+			win.show();
+			win.focus();
+		});
 
 		win.on('closed', () => {
 			reject(new Error('User closed the window'));
