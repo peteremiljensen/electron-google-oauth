@@ -9,16 +9,16 @@ const OAuth2 = google.auth.OAuth2;
 
 /* eslint-disable camelcase */
 
-function getAuthenticationUrl(scopes, clientId, clientSecret, redirectUri = 'urn:ietf:wg:oauth:2.0:oob') {
+function getAuthenticationUrl(scopes, clientId, clientSecret, redirectUri = 'urn:ietf:wg:oauth:2.0:oob', authOptions = undefined) {
 	const oauth2Client = new OAuth2(
 		clientId,
 		clientSecret,
 		redirectUri
 	);
-	const url = oauth2Client.generateAuthUrl({
+	const url = oauth2Client.generateAuthUrl(Object.assign({}, authOptions || {}, {
 		access_type: 'offline', // 'online' (default) or 'offline' (gets refresh_token)
-		scope: scopes // If you only need one scope you can pass it as string
-	});
+		scope: scopes // If you only need one scope you can pass it as string,
+	}));
 	return url;
 }
 
