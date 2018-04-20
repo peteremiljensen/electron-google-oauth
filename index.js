@@ -49,9 +49,9 @@ function authorizeApp(url, browserWindowParams) {
 	});
 }
 
-module.exports = function electronGoogleOauth(browserWindowParams, httpAgent) {
+module.exports = function electronGoogleOauth(browserWindowParams, httpAgent, authOptions = undefined) {
 	function getAuthorizationCode(scopes, clientId, clientSecret, redirectUri = 'urn:ietf:wg:oauth:2.0:oob') {
-		const url = getAuthenticationUrl(scopes, clientId, clientSecret, redirectUri);
+		const url = getAuthenticationUrl(scopes, clientId, clientSecret, redirectUri, authOptions);
 		return authorizeApp(url, browserWindowParams);
 	}
 
